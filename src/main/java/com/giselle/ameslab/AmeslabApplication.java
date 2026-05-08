@@ -1,4 +1,4 @@
-package com.giselle.ameslab.ameslab;
+package com.giselle.ameslab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
