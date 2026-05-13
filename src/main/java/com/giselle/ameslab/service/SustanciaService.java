@@ -14,6 +14,7 @@ public class SustanciaService {
     private final SustanciaRepository sustanciaRepository;
 
     public SustanciaService(SustanciaRepository sustanciaRepository){
+
         this.sustanciaRepository = sustanciaRepository;
     }
 
@@ -30,4 +31,43 @@ public class SustanciaService {
         Sustancia sustanciaGuardada = sustanciaRepository.save(sustancia);
         return SustanciaMapper.toDto(sustanciaGuardada);
     }
+
+    public SustanciaResponseDTO verSustancia(Long id){
+        Sustancia sustancia = sustanciaRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Sustancia no encontrada."));
+
+        return SustanciaMapper.toDto(sustancia);
+
+    }
+
+    public void borrarSustancia(Long id){
+        if(!sustanciaRepository.existsById(id)){
+            throw new RuntimeException("Sustancia no encontrada");
+        }
+        sustanciaRepository.deleteById(id);
+    }
+
+    public SustanciaResponseDTO editarSustancia(Long id, SustanciaRequestDTO dto){
+        Sustancia sustancia = sustanciaRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Sustancia no encontrada."));
+
+            if(dto.nombre() != null) {
+                sustancia.setNombre(dto.nombre());
+            }
+
+            if(dto.tipo() != null){
+                sustancia.setTipo(dto.tipo());
+            }
+
+            if(dto.descripcion() != null){
+                sustancia.setDescripcion(dto.descripcion());
+            }
+
+            Sustancia sustanciaActualizada = sustanciaRepository.save(sustancia);
+
+           return SustanciaMapper.toDto(sustanciaActualizada);
+
+    }
+
+
 }
