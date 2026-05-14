@@ -1,8 +1,7 @@
 package com.giselle.ameslab.controller;
 
-import com.giselle.ameslab.domain.Sustancia;
-import com.giselle.ameslab.dto.sustance.SustanciaRequestDTO;
-import com.giselle.ameslab.dto.sustance.SustanciaResponseDTO;
+import com.giselle.ameslab.dto.substance.SustanciaRequestDTO;
+import com.giselle.ameslab.dto.substance.SustanciaResponseDTO;
 import com.giselle.ameslab.service.SustanciaService;
 import org.springframework.web.bind.annotation.*;
 

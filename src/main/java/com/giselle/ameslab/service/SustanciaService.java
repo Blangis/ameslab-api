@@ -1,8 +1,8 @@
 package com.giselle.ameslab.service;
 
 import com.giselle.ameslab.domain.Sustancia;
-import com.giselle.ameslab.dto.sustance.SustanciaRequestDTO;
-import com.giselle.ameslab.dto.sustance.SustanciaResponseDTO;
+import com.giselle.ameslab.dto.substance.SustanciaRequestDTO;
+import com.giselle.ameslab.dto.substance.SustanciaResponseDTO;
 import com.giselle.ameslab.mapper.SustanciaMapper;
 import com.giselle.ameslab.repository.SustanciaRepository;
 import org.springframework.stereotype.Service;

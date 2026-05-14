@@ -1,4 +1,4 @@
-package com.giselle.ameslab.dto.sustance;
+package com.giselle.ameslab.dto.substance;
 
 public record SustanciaRequestDTO(
         String nombre,
