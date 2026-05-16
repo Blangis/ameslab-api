@@ -9,8 +9,8 @@ public class SustanciaMapper {
         Sustancia sustancia= new Sustancia();
 
         sustancia.setNombre(dto.nombre());
-        sustancia.setDescripcion(dto.descripcion());
         sustancia.setTipo(dto.tipo());
+        sustancia.setDescripcion(dto.descripcion());
 
         return sustancia;
 
@@ -20,8 +20,8 @@ public class SustanciaMapper {
         return new SustanciaResponseDTO(
                 sustancia.getId(),
                 sustancia.getNombre(),
-                sustancia.getDescripcion(),
-                sustancia.getTipo()
+                sustancia.getTipo(),
+                sustancia.getDescripcion()
 
                 );
 
