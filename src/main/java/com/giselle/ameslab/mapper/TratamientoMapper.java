@@ -44,6 +44,5 @@ public class TratamientoMapper {
                 tratamiento.getUnidad(),
                 tratamiento.getDescripcion()
         );
-
     }
 }

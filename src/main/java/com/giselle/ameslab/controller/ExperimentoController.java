@@ -3,6 +3,7 @@ package com.giselle.ameslab.controller;
 import com.giselle.ameslab.dto.experiment.ExperimentoRequestDTO;
 import com.giselle.ameslab.dto.experiment.ExperimentoResponseDTO;
 import com.giselle.ameslab.service.ExperimentoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class ExperimentoController {
     }
 
     @PostMapping
-    public ExperimentoResponseDTO crearExperimento(@RequestBody ExperimentoRequestDTO dto){
+    public ExperimentoResponseDTO crearExperimento(@RequestBody @Valid ExperimentoRequestDTO dto){
         return experimentoService.crearExperimento(dto);
     }
 
     @PutMapping("/{id}")
-    public ExperimentoResponseDTO editarExperimento(@PathVariable Long id, @RequestBody ExperimentoRequestDTO dto){
+    public ExperimentoResponseDTO editarExperimento(@PathVariable Long id, @RequestBody @Valid ExperimentoRequestDTO dto){
         return experimentoService.editarExperimento(id, dto);
     }
 

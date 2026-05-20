@@ -3,6 +3,7 @@ package com.giselle.ameslab.controller;
 import com.giselle.ameslab.dto.substance.SustanciaRequestDTO;
 import com.giselle.ameslab.dto.substance.SustanciaResponseDTO;
 import com.giselle.ameslab.service.SustanciaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class SustanciaController {
     }
 
     @PostMapping
-    public SustanciaResponseDTO crear(@RequestBody SustanciaRequestDTO dto){
+    public SustanciaResponseDTO crear(@RequestBody @Valid SustanciaRequestDTO dto){
         return sustanciaService.crear(dto);
     }
 
@@ -37,7 +38,7 @@ public class SustanciaController {
     }
 
     @PutMapping("/{id}")
-    public SustanciaResponseDTO editarSustancia(@PathVariable Long id, @RequestBody SustanciaRequestDTO dto){
+    public SustanciaResponseDTO editarSustancia(@PathVariable Long id, @RequestBody @Valid SustanciaRequestDTO dto){
         return sustanciaService.editarSustancia(id, dto);
     }
 }

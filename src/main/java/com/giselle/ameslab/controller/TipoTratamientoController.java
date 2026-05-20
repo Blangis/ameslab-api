@@ -3,6 +3,7 @@ package com.giselle.ameslab.controller;
 import com.giselle.ameslab.dto.type_treatment.TipoTratamientoRequestDTO;
 import com.giselle.ameslab.dto.type_treatment.TipoTratamientoResponseDTO;
 import com.giselle.ameslab.service.TipoTratamientoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class TipoTratamientoController {
     }
 
     @PostMapping
-    public TipoTratamientoResponseDTO crearTipoTrat(@RequestBody TipoTratamientoRequestDTO dto){
+    public TipoTratamientoResponseDTO crearTipoTrat(@RequestBody @Valid TipoTratamientoRequestDTO dto){
         return tipoTratamientoService.crearTipoTratamiento(dto);
     }
 
     @PutMapping("/{id}")
-    public TipoTratamientoResponseDTO editarTipoTratamiento(@PathVariable Long id, @RequestBody TipoTratamientoRequestDTO dto){
+    public TipoTratamientoResponseDTO editarTipoTratamiento(@PathVariable Long id, @RequestBody @Valid TipoTratamientoRequestDTO dto){
         return tipoTratamientoService.editarTipoTratamiento(id, dto);
     }
 

@@ -3,6 +3,7 @@ package com.giselle.ameslab.controller;
 import com.giselle.ameslab.dto.treatment.TratamientoRequestDTO;
 import com.giselle.ameslab.dto.treatment.TratamientoResponseDTO;
 import com.giselle.ameslab.service.TratamientoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class TratamientoController {
     }
 
     @PostMapping
-    public TratamientoResponseDTO crearTratamiento(@RequestBody TratamientoRequestDTO dto){
+    public TratamientoResponseDTO crearTratamiento(@RequestBody @Valid TratamientoRequestDTO dto){
         return tratamientoService.crearTratamiento(dto);
     }
 
     @PutMapping("/{id}")
-    public TratamientoResponseDTO editarTratamiento(@PathVariable Long id, @RequestBody TratamientoRequestDTO dto){
+    public TratamientoResponseDTO editarTratamiento(@PathVariable Long id, @RequestBody @Valid TratamientoRequestDTO dto){
         return tratamientoService.editarTratamiento(id, dto);
     }
 
