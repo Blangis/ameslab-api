@@ -3,6 +3,7 @@ package com.giselle.ameslab.service;
 import com.giselle.ameslab.domain.Sustancia;
 import com.giselle.ameslab.dto.substance.SustanciaRequestDTO;
 import com.giselle.ameslab.dto.substance.SustanciaResponseDTO;
+import com.giselle.ameslab.exception.DuplicateResourceException;
 import com.giselle.ameslab.exception.ResourceNotFoundException;
 import com.giselle.ameslab.mapper.SustanciaMapper;
 import com.giselle.ameslab.repository.SustanciaRepository;
@@ -28,6 +29,9 @@ public class SustanciaService {
 
     public SustanciaResponseDTO crear(SustanciaRequestDTO dto){
         Sustancia sustancia = SustanciaMapper.toEntity(dto);
+        if (sustanciaRepository.existsByNombre(dto.nombre())) {
+            throw new DuplicateResourceException("Ya existe una sustancia con el nombre: " + dto.nombre());
+        }
 
         Sustancia sustanciaGuardada = sustanciaRepository.save(sustancia);
         return SustanciaMapper.toDto(sustanciaGuardada);
