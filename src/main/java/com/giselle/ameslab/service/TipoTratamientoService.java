@@ -3,6 +3,7 @@ package com.giselle.ameslab.service;
 import com.giselle.ameslab.domain.TipoTratamiento;
 import com.giselle.ameslab.dto.type_treatment.TipoTratamientoRequestDTO;
 import com.giselle.ameslab.dto.type_treatment.TipoTratamientoResponseDTO;
+import com.giselle.ameslab.exception.ResourceNotFoundException;
 import com.giselle.ameslab.mapper.TipoTratamientoMapper;
 import com.giselle.ameslab.repository.TipoTratamientoRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class TipoTratamientoService {
 
     public TipoTratamientoResponseDTO traerTipoTratamiento(Long id){
         TipoTratamiento tipoTratamiento = tipoTratamientoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Tipo de tratamiento no encontrado."));
+                .orElseThrow(()-> new ResourceNotFoundException("Tipo de tratamiento con id: "+id+ " no encontrado."));
 
         return TipoTratamientoMapper.toDto(tipoTratamiento);
     }
@@ -41,7 +42,7 @@ public class TipoTratamientoService {
 
     public TipoTratamientoResponseDTO editarTipoTratamiento(Long id, TipoTratamientoRequestDTO dto) {
         TipoTratamiento tipoTratamiento = tipoTratamientoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tipo de Tratamiento no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Tipo de Tratamiento con id: "+id+ " no encontrado"));
 
         if (dto.nombre() != null) {
             tipoTratamiento.setNombre(dto.nombre());
@@ -57,7 +58,7 @@ public class TipoTratamientoService {
 
     public void borrarTipoTratamiento(Long id){
         TipoTratamiento tipoTratamiento = tipoTratamientoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ese tipo de tratamiento no existe"));
+                .orElseThrow(() -> new ResourceNotFoundException("Tipo de tratamiento con id: "+id+ " no existe"));
 
         tipoTratamientoRepository.delete(tipoTratamiento);
 

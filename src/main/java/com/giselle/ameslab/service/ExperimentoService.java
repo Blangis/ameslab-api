@@ -3,6 +3,7 @@ package com.giselle.ameslab.service;
 import com.giselle.ameslab.domain.Experimento;
 import com.giselle.ameslab.dto.experiment.ExperimentoRequestDTO;
 import com.giselle.ameslab.dto.experiment.ExperimentoResponseDTO;
+import com.giselle.ameslab.exception.ResourceNotFoundException;
 import com.giselle.ameslab.mapper.ExperimentoMapper;
 import com.giselle.ameslab.repository.ExperimentoRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class ExperimentoService {
 
     public ExperimentoResponseDTO verExperimento(Long id){
         Experimento experimento = experimentoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Experimento no encontrado."));
+                .orElseThrow(()-> new ResourceNotFoundException("Experimento con id: " +id+ " no encontrado."));
 
         return ExperimentoMapper.toDto(experimento);
     }
@@ -39,7 +40,7 @@ public class ExperimentoService {
 
     public ExperimentoResponseDTO editarExperimento(Long id, ExperimentoRequestDTO dto){
         Experimento experimento = experimentoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Experimento no encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Experimento con id: " + id + " no encontrado"));
 
         if(dto.nombre() != null){
             experimento.setNombre(dto.nombre());
@@ -65,7 +66,7 @@ public class ExperimentoService {
 
     public void borrarExperimento(Long id){
          experimentoRepository.findById(id)
-                 .orElseThrow(()-> new RuntimeException("Experimento no encontrado."));
+                 .orElseThrow(()-> new ResourceNotFoundException("Experimento con id: "+ id + " no encontrado."));
 
          experimentoRepository.deleteById(id);
     }

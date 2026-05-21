@@ -5,6 +5,7 @@ import com.giselle.ameslab.domain.TipoTratamiento;
 import com.giselle.ameslab.domain.Tratamiento;
 import com.giselle.ameslab.dto.treatment.TratamientoRequestDTO;
 import com.giselle.ameslab.dto.treatment.TratamientoResponseDTO;
+import com.giselle.ameslab.exception.ResourceNotFoundException;
 import com.giselle.ameslab.mapper.TratamientoMapper;
 import com.giselle.ameslab.repository.SustanciaRepository;
 import com.giselle.ameslab.repository.TipoTratamientoRepository;
@@ -35,17 +36,17 @@ public class TratamientoService {
 
     public TratamientoResponseDTO verTratamiento(Long id){
         Tratamiento tratamiento = tratamientoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Tratamiento no encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Tratamiento con id: "+id+ " no encontrado"));
 
         return TratamientoMapper.toDto(tratamiento);
     }
 
     public TratamientoResponseDTO crearTratamiento(TratamientoRequestDTO dto){
         Sustancia sustancia = sustanciaRepository.findById(dto.sustanciaId())
-                .orElseThrow(()-> new RuntimeException("Sustancia inexistente."));
+                .orElseThrow(()-> new ResourceNotFoundException("Sustancia con id: "+dto.sustanciaId()+ " no existe."));
 
         TipoTratamiento tipoTratamiento = tipoTratamientoRepository.findById(dto.tipoTratamientoId())
-                .orElseThrow(()-> new RuntimeException("Tipo de tratamiento no encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Tipo de tratamiento con id: "+dto.tipoTratamientoId()+ " no encontrado."));
 
         Tratamiento tratamiento = TratamientoMapper.toEntity(dto, sustancia, tipoTratamiento);
 
@@ -55,19 +56,19 @@ public class TratamientoService {
 
     public TratamientoResponseDTO editarTratamiento(Long id, TratamientoRequestDTO dto){
        Tratamiento tratamiento = tratamientoRepository.findById(id)
-               .orElseThrow(()-> new RuntimeException("Tratamiento no encontrado"));
+               .orElseThrow(()-> new ResourceNotFoundException("Tratamiento con id: "+id+ " no encontrado"));
 
        if(dto.sustanciaId() != null){
-           Sustancia sust = sustanciaRepository.findById(dto.sustanciaId())
-                   .orElseThrow(()-> new RuntimeException("Sustancia no encontrada"));
+           Sustancia sustancia = sustanciaRepository.findById(dto.sustanciaId())
+                   .orElseThrow(()-> new ResourceNotFoundException("Sustancia con id: "+dto.sustanciaId()+ " no encontrada"));
 
-           tratamiento.setSustancia(sust);
+           tratamiento.setSustancia(sustancia);
 
        }
 
        if(dto.tipoTratamientoId() != null){
            TipoTratamiento tipoTratamiento = tipoTratamientoRepository.findById(dto.tipoTratamientoId())
-                   .orElseThrow(()-> new RuntimeException("Tipo de tratamiento no encontrado"));
+                   .orElseThrow(()-> new ResourceNotFoundException("Tipo de tratamiento con id: "+dto.tipoTratamientoId()+ " no encontrado."));
 
            tratamiento.setTipoTratamiento(tipoTratamiento);
        }
@@ -99,7 +100,8 @@ public class TratamientoService {
     }
 
     public void eliminarTratamiento(Long id){
-        Tratamiento tratam = tratamientoRepository.findById(id).orElseThrow(()-> new RuntimeException("Tratamiento no encontrado."));
-        tratamientoRepository.delete(tratam);
+        Tratamiento tratamiento = tratamientoRepository.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Tratamiento con id: "+id+ " no encontrado."));
+        tratamientoRepository.delete(tratamiento);
     }
 }

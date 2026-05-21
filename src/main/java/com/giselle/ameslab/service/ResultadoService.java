@@ -5,6 +5,7 @@ import com.giselle.ameslab.domain.Resultado;
 import com.giselle.ameslab.domain.Tratamiento;
 import com.giselle.ameslab.dto.result.ResultadoRequestDTO;
 import com.giselle.ameslab.dto.result.ResultadoResponseDTO;
+import com.giselle.ameslab.exception.ResourceNotFoundException;
 import com.giselle.ameslab.mapper.ResultadoMapper;
 import com.giselle.ameslab.repository.ExperimentoRepository;
 import com.giselle.ameslab.repository.ResultadoRepository;
@@ -32,17 +33,17 @@ public class ResultadoService {
 
     public ResultadoResponseDTO verResultado(Long id){
         Resultado resultado = resultadoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Resultado no encontrado."));
+                .orElseThrow(()-> new ResourceNotFoundException("Resultado con id: " + id + " no encontrado."));
 
         return ResultadoMapper.toDto(resultado);
     }
 
     public ResultadoResponseDTO crearResultado(ResultadoRequestDTO dto){
         Experimento experimento = experimentoRepository.findById(dto.experimentoId())
-                .orElseThrow(()-> new RuntimeException("Experimento no encontrado."));
+                .orElseThrow(()-> new ResourceNotFoundException("Experimento con id: " + dto.experimentoId() + "  no encontrado."));
 
         Tratamiento tratamiento = tratamientoRepository.findById(dto.tratamientoId())
-                .orElseThrow(()-> new RuntimeException("Tratamiento no encontrado."));
+                .orElseThrow(()-> new ResourceNotFoundException("Tratamiento con id: " + dto.tratamientoId() + "  no encontrado."));
 
         Resultado resultado = ResultadoMapper.toEntity(dto, experimento, tratamiento);
         Resultado resultadoGuardado = resultadoRepository.save(resultado);
@@ -52,18 +53,18 @@ public class ResultadoService {
 
     public ResultadoResponseDTO editarResultado(Long id, ResultadoRequestDTO dto){
         Resultado resultado = resultadoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Resultado no encontrado."));
+                .orElseThrow(()-> new ResourceNotFoundException("Resultado con id: " + id + ", no encontrado."));
 
         if(dto.experimentoId() != null){
             Experimento experimento = experimentoRepository.findById(dto.experimentoId())
-                    .orElseThrow(()-> new RuntimeException("Experimento no tiene coincidencias."));
+                    .orElseThrow(()-> new ResourceNotFoundException("Experimento con id: " + dto.experimentoId() + ", no tiene coincidencias."));
 
             resultado.setExperimento(experimento);
         }
 
         if(dto.tratamientoId() != null){
             Tratamiento tratamiento = tratamientoRepository.findById(dto.tratamientoId())
-                    .orElseThrow(()-> new RuntimeException("Tramiento no tiene coincidencias"));
+                    .orElseThrow(()-> new ResourceNotFoundException("Tramiento con id: " + dto.tratamientoId() + ", no tiene coincidencias"));
 
             resultado.setTratamiento(tratamiento);
 
@@ -89,7 +90,7 @@ public class ResultadoService {
 
     public void eliminarResultado(Long id){
         Resultado resultado = resultadoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Resultado no encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Resultado con id: " + id + ", no encontrado"));
 
         resultadoRepository.delete(resultado);
     }
