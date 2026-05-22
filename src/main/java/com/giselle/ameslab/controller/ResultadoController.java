@@ -3,6 +3,7 @@ package com.giselle.ameslab.controller;
 import com.giselle.ameslab.dto.result.ResultadoRequestDTO;
 import com.giselle.ameslab.dto.result.ResultadoResponseDTO;
 import com.giselle.ameslab.service.ResultadoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ResultadoController {
     }
 
     @PostMapping
-    public ResultadoResponseDTO crearResultado(@RequestBody ResultadoRequestDTO dto){
+    public ResultadoResponseDTO crearResultado(@Valid @RequestBody ResultadoRequestDTO dto){
         return resultadoService.crearResultado(dto);
     }
 
