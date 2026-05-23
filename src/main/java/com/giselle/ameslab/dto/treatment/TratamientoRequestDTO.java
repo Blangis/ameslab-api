@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
 
+// Representa el tratamiento completo que se manda desde front
 public record TratamientoRequestDTO(
         @NotNull
         Long tipoTratamientoId,

@@ -1,4 +1,11 @@
 package com.giselle.ameslab.dto.treatment;
 
-public record TratamientoSustanciaResponseDTO() {
+import java.math.BigDecimal;
+
+public record TratamientoSustanciaResponseDTO(
+        Long sustanciaId,
+        String sustanciaNombre,
+        BigDecimal concentracion,
+        String unidad
+) {
 }

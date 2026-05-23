@@ -5,9 +5,6 @@ import java.math.BigDecimal;
 public record TratamientoSummaryDTO(
         Long id,
         String nombre,
-        String sustanciaNombre,
-        String tipoTratamientoNombre,
-        BigDecimal concentracion,
-        String unidad
+        String tipoTratamientoNombre
 ) {
 }
