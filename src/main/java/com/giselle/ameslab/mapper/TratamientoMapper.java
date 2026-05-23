@@ -10,16 +10,14 @@ import com.giselle.ameslab.dto.type_treatment.TipoTratamientoSummaryDTO;
 
 public class TratamientoMapper {
 
-    public static Tratamiento toEntity(TratamientoRequestDTO dto, Sustancia sustancia, TipoTratamiento tipoTratamiento){
+    public static Tratamiento toEntity(TratamientoRequestDTO dto,TipoTratamiento tipoTratamiento){
         Tratamiento tratamiento = new Tratamiento();
-        tratamiento.setSustancia(sustancia);
+
         tratamiento.setTipoTratamiento(tipoTratamiento);
-        tratamiento.setNombre(
-                sustancia.getNombre() + " - " + tipoTratamiento.getNombre()
-        );
-        tratamiento.setConcentracion(dto.concentracion());
-        tratamiento.setUnidad(dto.unidad());
         tratamiento.setDescripcion(dto.descripcion());
+        tratamiento.setNombre(
+                tipoTratamiento.getNombre()
+        );
 
         return tratamiento;
 
@@ -29,19 +27,12 @@ public class TratamientoMapper {
         return new TratamientoResponseDTO(
                 tratamiento.getId(),
 
-                new SustanciaSummaryDTO(
-                        tratamiento.getSustancia().getId(),
-                        tratamiento.getSustancia().getNombre()
-                ),
-
                 new TipoTratamientoSummaryDTO(
                         tratamiento.getTipoTratamiento().getId(),
                         tratamiento.getTipoTratamiento().getNombre()
                 ),
 
                 tratamiento.getNombre(),
-                tratamiento.getConcentracion(),
-                tratamiento.getUnidad(),
                 tratamiento.getDescripcion()
         );
     }

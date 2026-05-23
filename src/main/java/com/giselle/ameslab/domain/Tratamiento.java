@@ -20,16 +20,10 @@ public class Tratamiento {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="sustancia_id")
-    private Sustancia sustancia;
-
-    @ManyToOne
     @JoinColumn(name="tipo_tratamiento_id")
     private TipoTratamiento tipoTratamiento;
 
     private String nombre;
-    private BigDecimal concentracion;
-    private String unidad;
     private String descripcion;
 
 

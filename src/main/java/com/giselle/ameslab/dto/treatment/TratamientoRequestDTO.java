@@ -1,23 +1,21 @@
 package com.giselle.ameslab.dto.treatment;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public record TratamientoRequestDTO(
         @NotNull
-        Long sustanciaId,
-
-        @NotNull
         Long tipoTratamientoId,
 
-        @NotNull
-        @Positive
-        BigDecimal concentracion,
+        String descripcion,
 
-        @NotNull
-        String unidad,
-
-        String descripcion) {
+        @Valid
+        @NotEmpty
+        List<TratamientoSustanciaRequestDTO> sustancias
+){
 }
